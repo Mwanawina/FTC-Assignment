@@ -79,10 +79,12 @@ contract LiquidityCustodian {
     /// @param owner The address of the liquidity position owner
     /// @param tokenId Id of the ERC721 token minted to represent ownership of the liquidity position
     function _createDeposit(address owner, uint256 tokenId) internal {
-        // TODO: get the position details that has been staked in the uniswap NFT manager
+        // TODO: get the details of the liquidity position from the uniswap NFT manager
 
-        // TODO: set the owner and details for position
-        // NOTE: the owner of the deposit is whoever has created the liquidity through this contract or elsewhere and sent this contract their NFT
+        // TODO: create Deposit object using the detail above and store it in the deposits mapping
+        // NOTE: the owner of the deposit is whoever has created the liquidity position through this contract or elsewhere and sent this contract their NFT
+
+        // TODO: store the tokenId in the owners' token array that is in the liquidityTokens mapping
     }
 
     /// @notice Takes in an address and index as parameters and returns a tokenId.
@@ -156,7 +158,6 @@ contract LiquidityCustodian {
             TransferHelper.safeTransfer(token1_, msg.sender, refund1);
         }
     }
-
 
     /// @notice Transfers the NFT to the owner
     /// @param tokenId The id of the erc721
