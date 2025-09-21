@@ -12,7 +12,7 @@ import '@uniswap/v3-periphery/contracts/base/LiquidityManagement.sol';
 
 import "hardhat/console.sol";
 
-// TODO: Make this contract a IERC721Receiver
+// COMPLETED TODO: Make this contract a IERC721Receiver
 contract LiquidityCustodian {
     address public immutable token;
     address public immutable weth;
@@ -55,42 +55,79 @@ contract LiquidityCustodian {
 
     /// @notice Creates and initializes a WETH/TOKEN liquidity pool
     function createPool() public {
-        // TODO: assign WETH and MC addresses to new variables token0_ and token1_ addresses
+        // COMPLETED TODO: assign WETH and MC addresses to new variables token0_ and token1_ addresses
         // NOTE: for a uniswap pool token0 address should be strictly less than token1
+        (address token0_, address token1_) = token < weth ? (token, weth) : (weth, token);
 
-        // TODO: create a liquidity pool of WETH and MC token using uniswap factory
+        // COMPLETED TODO: create a liquidity pool of WETH and MC token using uniswap factory
+        address liquidityPoolAddress_ = uniswapV3Factory.createPool(token0_, token1_, _dexPoolFee);
 
-        // TODO: assign the liquidityPoolAddress
+        // COMPLETED TODO: assign the liquidityPoolAddress
+        liquidityPoolAddress = liquidityPoolAddress_;
 
-        // TODO: get the square of the price using at the _poolTick TickMath library from Uniswap
+        // COMPLETED TODO: get the square of the price using at the _poolTick TickMath library from Uniswap
         // NOTE: sqrtPriceX96 is a A Fixed point Q64.96 number representing the sqrt of the ratio of the two assets (token1/token0)
-        
-        // TODO: initialize the pool with the sqrtPriceX96
+        uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(_poolTick);
 
-        // TODO: emit the PoolCreate event
-        // emit PoolCreated(token, liquidityPoolAddress_, sqrtPriceX96);
+        // COMPLETED TODO: initialize the pool with the sqrtPriceX96
+        IUniswapV3Pool(liquidityPoolAddress_).initialize(sqrtPriceX96);
+
+        // COMPLETED TODO: emit the PoolCreate event
+        emit PoolCreated(token, liquidityPoolAddress_, sqrtPriceX96);
     }
 
-    // TODO: create the onERC721Received function. It will create a deposit in the custodian contract
+    // COMPLETED TODO: create the onERC721Received function. It will create a deposit in the custodian contract
     // NOTE: the function should create an NFT deposit for the sender of NFT to this smart contract
-    
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4) {
+        _createDeposit(from, tokenId);
+        return this.onERC721Received.selector;
+    } 
+    // We had .... external override returns (bytes4) .... above there initially   
 
     /// @notice Stores the details of the deposited liquidity position's NFT
     /// @param owner The address of the liquidity position owner
     /// @param tokenId Id of the ERC721 token minted to represent ownership of the liquidity position
     function _createDeposit(address owner, uint256 tokenId) internal {
-        // TODO: get the details of the liquidity position from the uniswap NFT manager
+        // COMPLETED TODO: get the details of the liquidity position from the uniswap NFT manager
+        (
+            , 
+            , 
+            address token0,
+            address token1,
+            ,
+            ,
+            ,
+            uint128 liquidity,
+            ,
+            ,
+            ,
 
-        // TODO: create Deposit object using the detail above and store it in the deposits mapping
+        ) = uniswapPositionManager.positions(tokenId);
+
+        // COMPLETED TODO: create Deposit object using the detail above and store it in the deposits mapping
         // NOTE: the owner of the deposit is whoever has created the liquidity position through this contract or elsewhere and sent this contract their NFT
+        deposits[tokenId] = Deposit({
+            owner: owner,
+            liquidity: liquidity,
+            token0: token0,
+            token1: token1
+        });
 
-        // TODO: store the tokenId in the owners' token array that is in the liquidityTokens mapping
+        // COMPLETED TODO: store the tokenId in the owners' token array that is in the liquidityTokens mapping
+        liquidityTokens[owner].push(tokenId);
     }
 
     /// @notice Takes in an address and index as parameters and returns a tokenId.
     /// @param owner The address of the liquidity position owner
     /// @param index The index of the tokenId to be returned if the owner has more than 1 liquidity positions
     /// @return uint256 TokenId that represents the liquidity position owned by the address
+    
+    // !!!!! //////////// WHY WAS THIS EXCLUSED THOOOOUGH ///////////////////////
     function liquidityTokenByIndex(address owner, uint256 index) public view virtual returns (uint256) {
         require(liquidityTokens[owner].length > 0, "The address has no liquidity tokens");
         
@@ -119,11 +156,17 @@ contract LiquidityCustodian {
         (address token0_, address token1_) = token < weth ? (token, weth) : (weth, token);
         (uint256 amount0ToMint, uint256 amount1ToMint) = token < weth ? (tokenAmountToMint, wethAmountToMint) : (wethAmountToMint, tokenAmountToMint);
 
-        // TODO: transfer the token0, amount0ToMint, from the msg.sender to this contract
-        // TODO: transfer the token1, amount1ToMint, from the msg.sender to this contract
+        // COMPLETED TODO: transfer the token0, amount0ToMint, from the msg.sender to this contract
+        TransferHelper.safeTransferFrom(token0_, msg.sender, address(this), amount0ToMint);
 
-        // TODO: approve the uniswap position manager to transfer amount0ToMint of token0
-        // TODO: approve the uniswap position manager to transfer amount1ToMint of token1
+        // COMPLETED TODO: transfer the token1, amount1ToMint, from the msg.sender to this contract
+        TransferHelper.safeTransferFrom(token1_, msg.sender, address(this), amount1ToMint);
+
+        // COMPLETED TODO: approve the uniswap position manager to transfer amount0ToMint of token0
+        TransferHelper.safeApprove(token0_, address(uniswapPositionManager), amount0ToMint);
+        
+        // COMPLETED TODO: approve the uniswap position manager to transfer amount1ToMint of token1
+        TransferHelper.safeApprove(token1_, address(uniswapPositionManager), amount1ToMint);
 
         INonfungiblePositionManager.MintParams memory params =
             INonfungiblePositionManager.MintParams({
@@ -140,10 +183,12 @@ contract LiquidityCustodian {
                 deadline: block.timestamp
             });
 
-        // TODO: mint the liquidity position in the uniswap position manager using the params above
+        // COMPLETED TODO: mint the liquidity position in the uniswap position manager using the params above
         // NOTE: this returns the tokenId of the minted NFT that represents the liquidity position
+        (tokenId, liquidity, amount0, amount1) = uniswapPositionManager.mint(params);
 
-        // TODO: create the deposit record for the minter/msg.sender
+        // COMPLETED TODO: create the deposit record for the minter/msg.sender
+        _createDeposit(msg.sender, tokenId);
 
         // Remove allowance and refund in both assets.
         if (amount0 < amount0ToMint) {
@@ -171,6 +216,16 @@ contract LiquidityCustodian {
         _deleteLiquidityToken(msg.sender, tokenId);
     }
 
-    // TODO: complete the functions _deleteLiquidityToken
-    function _deleteLiquidityToken(address ownerAddress, uint256 tokenId) private {}
+    // COMPLETED TODO: complete the functions _deleteLiquidityToken
+    function _deleteLiquidityToken(address ownerAddress, uint256 tokenId) private {
+        uint256[] storage tokens = liquidityTokens[ownerAddress];
+        for (uint256 i = 0; i < tokens.length; i++) {
+            if (tokens[i] == tokenId) {
+                tokens[i] = tokens[tokens.length - 1];
+                tokens.pop();
+                break;
+            }
+        }
+    }
 }
+

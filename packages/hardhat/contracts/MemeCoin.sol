@@ -11,9 +11,11 @@ contract MemeCoin is ERC20, Ownable{
 
     event PoolCreated(address tk, address pool, uint160 sqrtPriceX96);
 
-    // TODO: create a _totalSupply of 1000 tokens which have 18 decimal places
+    // COMPLETED TODO: create a _totalSupply of 1000 tokens which have 18 decimal places
+    uint256 private constant _totalSupply = 1000 * (10 ** uint256(_decimals));
 
     constructor() ERC20("Meme Coin", "MC") {
-        // TODO: mint the _totalSupply of tokens to the owner
+        // COMPLETED TODO: mint the _totalSupply of tokens to the owner
+        _mint(msg.sender, _totalSupply);
     }
 }

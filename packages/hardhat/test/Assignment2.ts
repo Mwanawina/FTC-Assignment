@@ -19,19 +19,19 @@ const { ethers } = hre;
 
 describe("🚩 Uniswap Dex: 🏵 Liquidity Custodian 🤖", function () {
   // TODO: insert the factoryAddress
-  const factoryAddress = "";
+  const factoryAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
   let swapRouter: ISwapRouter;
   // TODO: insert the swapRouterAddress
-  const swapRouterAddress = "";
+  const swapRouterAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
   // TODO: insert the positionManagerAddress
   let positionManager: INonfungiblePositionManager;
-  const positionManagerAddress = "";
+  const positionManagerAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707";
 
   let WETHToken: IWETH9;
   // TODO: insert the WETHTokenAddress
-  const WETHTokenAddress = "";
+  const WETHTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   let liquidityPoolAddress: string;
   let liquidityPool: IUniswapV3Pool;
