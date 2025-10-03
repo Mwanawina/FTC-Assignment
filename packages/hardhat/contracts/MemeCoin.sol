@@ -16,12 +16,16 @@ contract MemeCoin is ERC20, Ownable {
     // By convention, ERC20 tokens use 18 decimals so this is the proper supply
     uint256 private constant _totalSupply = 1000 * (10 ** uint256(_decimals));
 
+    // This Constructor runs once at deployment
+    // Parameter owner is the address that will be set as the contract owner
     constructor(address owner) ERC20("Meme Coin", "MC") Ownable(owner) {
         // COMLETED TODO create a vendor smart contract. This contract will be responsible for buying and selling your token in ETH
         // The Vendor contract is deployed from inside the constructor causes contacts can deploy other contracts
+        // We pass this token's address and the owner address to the Vendor
         vendor = new Vendor(address(this), owner);
 
         // COMLETED TODO assign the vendorAddress
+        // Storing the deployed vendor contract address
         vendorAddress = address(vendor);
 
         // COMLETED TODO mint the _totalSupply of tokens to the vendor address
