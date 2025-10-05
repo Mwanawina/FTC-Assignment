@@ -34,7 +34,7 @@ Welcome to the repository for Fintech and Cryptocurrencies 2025 Assignment. This
 - Take a screenshot of the `Vendor` smart contract button on the `Debug Contracts` page and insert here:
 > NOTE: It is easier to do this by editing you readme directly on your github account in the browser.
 
-<img src="" width="400">
+<img src="https://raw.githubusercontent.com/Mwanawina/FTC-Assignment/main/Images/A1_Checkpoint.jpg" width="400">
 
 ## Checkpoint 2:
 
