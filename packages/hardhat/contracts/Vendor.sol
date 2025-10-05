@@ -33,7 +33,7 @@ contract Vendor is Ownable {
 
         // COMLETED TODO calculate the amount of tokens buyable
         // This is based on the ETH sent
-        uint256 tokensToBuy = msg.value * tokensPerEth;
+        uint256 tokensToBuy = (msg.value * tokensPerEth) / 1 ether;
 
         // COMLETED TODO check that vendor has enough tokens to sell to msg.sender
         // Self-explanatory I'd say. We get the vendor's ETH balance & ensure there's enough ETH available to withdraw

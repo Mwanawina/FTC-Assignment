@@ -20,7 +20,7 @@
     "verify": "hardhat etherscan-verify"
   },
   "dependencies": {
-    "@inquirer/password": "^4.0.2",
+    "@inquirer/password": "^4.0.20",
     "@openzeppelin/contracts": "~5.0.2",
     "@typechain/ethers-v6": "~0.5.1",
     "dotenv": "~16.4.5",

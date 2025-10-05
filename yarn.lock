@@ -1226,13 +1226,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/core@npm:^10.1.9":
-  version: 10.1.9
-  resolution: "@inquirer/core@npm:10.1.9"
+"@inquirer/ansi@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@inquirer/ansi@npm:1.0.0"
+  checksum: 153b619c1178ece3e28a66ab41b7827b9ee64c84180f779bcc1c38c8c3e87979130bba109dd7e648ccdd3786da75c4a3a0945e816dc6afec9219f54ac7fbbb69
+  languageName: node
+  linkType: hard
+
+"@inquirer/core@npm:^10.2.2":
+  version: 10.2.2
+  resolution: "@inquirer/core@npm:10.2.2"
   dependencies:
-    "@inquirer/figures": ^1.0.11
-    "@inquirer/type": ^3.0.5
-    ansi-escapes: ^4.3.2
+    "@inquirer/ansi": ^1.0.0
+    "@inquirer/figures": ^1.0.13
+    "@inquirer/type": ^3.0.8
     cli-width: ^4.1.0
     mute-stream: ^2.0.0
     signal-exit: ^4.1.0
@@ -1243,42 +1250,42 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 564ab1ef59b0f22e129051480205964a2b8f90fb1908ae73d08ce18c2d3a6bd0de35aed54f4f1a87e1d6a34144b288cfc0e93127b09f00145b681a4bc3f49534
+  checksum: 79d528ecb5f485a0f63bd5e48273a2ffba9457240e2a1971da8ea97a97c8398b932260691b8d5e5134f306ba8b08ce7a4800dfa7bd8cc9143a86760714215927
   languageName: node
   linkType: hard
 
-"@inquirer/figures@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "@inquirer/figures@npm:1.0.11"
-  checksum: 6be2867050f5c179d9fcc389a4a3e9aca6ac45fd02106918eba2d6c27a7251a48693ac13fcf9f084e25bf963eb51045c23ca9e87c523e318b0e286d4173449a9
+"@inquirer/figures@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "@inquirer/figures@npm:1.0.13"
+  checksum: 1042cbefad8c69b004396ce6be2d0b135c303317d870ddd0cee75bac429fc7c7f577bac9e3c1ec1cd3668a709f49a591edb2f714193778e7d7b140a622f2a1ef
   languageName: node
   linkType: hard
 
-"@inquirer/password@npm:^4.0.2":
-  version: 4.0.11
-  resolution: "@inquirer/password@npm:4.0.11"
+"@inquirer/password@npm:^4.0.20":
+  version: 4.0.20
+  resolution: "@inquirer/password@npm:4.0.20"
   dependencies:
-    "@inquirer/core": ^10.1.9
-    "@inquirer/type": ^3.0.5
-    ansi-escapes: ^4.3.2
+    "@inquirer/ansi": ^1.0.0
+    "@inquirer/core": ^10.2.2
+    "@inquirer/type": ^3.0.8
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: df2d8262ca168e62809f718e19b2915e68ef72980f52dadb87da174e69588be719e9afc4b5987ed03cb4292c77e97bad7bcbcd80e1b9578e1b94e3d1c7a18700
+  checksum: 9b3c46498cf09e3d3da1e2539b23468ab4020904dc40efb8a8f50b1c5bf7af7e7355c18ee313dac00d750b4b83d8b0a2c72b10cfcef475f742a5a738fe4300f2
   languageName: node
   linkType: hard
 
-"@inquirer/type@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "@inquirer/type@npm:3.0.5"
+"@inquirer/type@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "@inquirer/type@npm:3.0.8"
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: a2d2aeba1b7e2000c5cddbb289cbf7a751dcea924f6c4a732a6ec99cac98a668bcce23f98357e098855027e18113949a4fb31162e3b3742775ab8e96cf59fb88
+  checksum: 361fa75c98f274462aaa3f2baf40ee43f284daaa64e3689a92863ed4ff63236ca3d40c6e715b3ff80c45feb6ab679792a6162e2d4521daff3929c490b0dddfcf
   languageName: node
   linkType: hard
 
@@ -2205,6 +2212,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts@npm:^4.9.0":
+  version: 4.9.6
+  resolution: "@openzeppelin/contracts@npm:4.9.6"
+  checksum: 274b6e968268294f12d5ca4f0278f6e6357792c8bb4d76664f83dbdc325f780541538a127e6a6e97e4f018088b42f65952014dec9c745c0fa25081f43ef9c4bf
+  languageName: node
+  linkType: hard
+
 "@openzeppelin/contracts@npm:~5.0.2":
   version: 5.0.2
   resolution: "@openzeppelin/contracts@npm:5.0.2"
@@ -2451,7 +2465,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": ~5.7.0
     "@ethersproject/providers": ~5.7.2
-    "@inquirer/password": ^4.0.2
+    "@inquirer/password": ^4.0.20
     "@nomicfoundation/hardhat-chai-matchers": ~2.0.7
     "@nomicfoundation/hardhat-ethers": ~3.0.8
     "@nomicfoundation/hardhat-network-helpers": ~1.0.11
@@ -4608,7 +4622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-escapes@npm:^4.3.0, ansi-escapes@npm:^4.3.2":
+"ansi-escapes@npm:^4.3.0":
   version: 4.3.2
   resolution: "ansi-escapes@npm:4.3.2"
   dependencies:
@@ -12238,6 +12252,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    "@openzeppelin/contracts": ^4.9.0
     husky: ~8.0.3
     lint-staged: ~13.2.2
   languageName: unknown
